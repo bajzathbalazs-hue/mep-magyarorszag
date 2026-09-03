@@ -117,12 +117,10 @@
     });
   }
 
-  // Ajánlatkérő űrlap — kliensoldali validáció + demo visszajelzés
-  // MISSING DATA: nincs backend / email-küldő szolgáltatás bekötve. Ez csak a frontend
-  // viselkedést demonstrálja; éles működéshez szerver oldali endpoint (form-handler,
-  // spam-védelem, e-mail küldés info@btkkft.hu / balazs.bajzath@btkkft.hu / gabor.bajzath@btkkft.hu felé) szükséges.
+  // Ajánlatkérő űrlap — kliensoldali validáció + valódi e-mail küldés (FormSubmit.co, fiók nélkül)
   var quoteForm = document.querySelector("#quote-form");
   if (quoteForm) {
+    var formLoadTime = Date.now();
     quoteForm.addEventListener("submit", function (e) {
       e.preventDefault();
       var status = quoteForm.querySelector(".form-status");
@@ -137,16 +135,68 @@
       });
       if (!status) return;
       status.classList.remove("success", "error");
+
+      // Spam-védelem: rejtett "honeypot" mező + túl gyors beküldés szűrése
+      var honey = quoteForm.querySelector('[name="company_website"]');
+      var submittedTooFast = Date.now() - formLoadTime < 2500;
+      if ((honey && honey.value) || submittedTooFast) {
+        status.textContent = "Hiba történt a küldés során. Kérjük, próbálja újra.";
+        status.classList.add("error", "visible");
+        return;
+      }
+
       if (!requiredOk) {
         status.textContent = "Kérjük, töltsd ki a kötelező mezőket, és fogadd el az adatkezelési tájékoztatót.";
         status.classList.add("error", "visible");
         return;
       }
-      status.textContent = "Köszönjük! Ez egy demó űrlap — élesítéskor az ajánlatkérés e-mailben megérkezik a BTK Kft. munkatársaihoz.";
-      status.classList.add("success", "visible");
-      quoteForm.reset();
+
+      var submitBtn = quoteForm.querySelector('button[type="submit"]');
+      var submitBtnLabel = submitBtn ? submitBtn.textContent : "";
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Küldés…"; }
+
+      fetch(quoteForm.action, {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: new FormData(quoteForm)
+      })
+        .then(function (res) { return res.ok ? res.json() : Promise.reject(res); })
+        .then(function () {
+          status.textContent = "Köszönjük! Munkatársunk 1 munkanapon belül felveszi Önnel a kapcsolatot.";
+          status.classList.add("success", "visible");
+          quoteForm.reset();
+        })
+        .catch(function () {
+          status.textContent = "Hiba történt a küldés során. Kérjük, próbálja újra, vagy írjon nekünk közvetlenül az info@btkkft.hu címre.";
+          status.classList.add("error", "visible");
+        })
+        .finally(function () {
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtnLabel; }
+        });
     });
   }
+
+  // Cookie hozzájárulási sáv
+  (function () {
+    var KEY = "mep-cookie-consent";
+    var banner = document.getElementById("cookie-banner");
+    if (!banner) return;
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (err) {}
+    window.mepConsent = stored; // "accepted" | "rejected" | null — jövőbeli analitika ez alapján dönthet
+    if (!stored) {
+      window.setTimeout(function () { banner.classList.add("visible"); }, 600);
+    }
+    function setConsent(value) {
+      try { localStorage.setItem(KEY, value); } catch (err) {}
+      window.mepConsent = value;
+      banner.classList.remove("visible");
+    }
+    var acceptBtn = document.getElementById("cookie-accept");
+    var rejectBtn = document.getElementById("cookie-reject");
+    if (acceptBtn) acceptBtn.addEventListener("click", function () { setConsent("accepted"); });
+    if (rejectBtn) rejectBtn.addEventListener("click", function () { setConsent("rejected"); });
+  })();
 
   // Év a lábléchez
   var yearEl = document.querySelector("#current-year");

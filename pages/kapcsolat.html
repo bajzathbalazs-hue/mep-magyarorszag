@@ -101,7 +101,11 @@
     <div class="container">
       <div class="grid grid-2" style="gap:48px; align-items:flex-start;">
 
-        <form id="quote-form" class="reveal" novalidate>
+        <form id="quote-form" class="reveal" novalidate action="https://formsubmit.co/ajax/info@btkkft.hu" method="POST">
+          <input type="hidden" name="_subject" value="Új ajánlatkérés – MEP weboldal">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_cc" value="balazs.bajzath@btkkft.hu,gabor.bajzath@btkkft.hu">
+          <input type="text" name="company_website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-grid">
             <div class="field">
               <label for="name">Név *</label>
@@ -151,7 +155,7 @@
           </div>
           <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top:20px;">Ajánlatkérés elküldése</button>
           <p class="form-status" role="status"></p>
-          <p class="form-note">* Kötelező mezők. Az űrlap jelenleg demó állapotban van — éles működéshez szerveroldali feldolgozás (spam-védelem, e-mail-küldés info@btkkft.hu, balazs.bajzath@btkkft.hu és gabor.bajzath@btkkft.hu címekre) szükséges.</p>
+          <p class="form-note">* Kötelező mezők. A beküldött ajánlatkérés e-mailben megérkezik a BTK Kft. munkatársaihoz (info@btkkft.hu, balazs.bajzath@btkkft.hu, gabor.bajzath@btkkft.hu).</p>
         </form>
 
         <div class="reveal">
@@ -217,6 +221,15 @@
     </div>
   </div>
 </footer>
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie hozzájárulás">
+  <div class="cookie-banner-inner">
+    <p>Weboldalunk sütiket (cookie-kat) használ a működéshez és a felhasználói élmény javításához. Bővebben a <a href="cookie-tajekoztato.html">Cookie tájékoztatóban</a> olvashat.</p>
+    <div class="cookie-banner-actions">
+      <button type="button" class="btn btn-outline btn-sm" id="cookie-reject">Elutasítom</button>
+      <button type="button" class="btn btn-primary btn-sm" id="cookie-accept">Elfogadom</button>
+    </div>
+  </div>
+</div>
 <script src="../assets/js/main.js"></script>
 </body>
 </html>

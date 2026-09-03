@@ -540,6 +540,7 @@ textarea{ resize: vertical; min-height: 120px; }
 .form-status.visible{ display:block; }
 .form-status.success{ background:#e7f6ec; color:#1b7a3d; }
 .form-status.error{ background:#fdeceb; color:#c0392b; }
+.hp-field{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
 
 /* ---------- Video ---------- */
 .video-embed{ position:relative; aspect-ratio:16/9; border-radius: var(--radius-md); overflow:hidden; background:#000; box-shadow: var(--shadow-md), var(--shadow-glow); }
@@ -568,3 +569,23 @@ textarea{ resize: vertical; min-height: 120px; }
 .badge-stock.order{ background:#fef3e2; color:#a5680b; }
 .skip-link{ position:absolute; left:-999px; top:0; background:#fff; color:#000; padding:10px 16px; z-index:100; }
 .skip-link:focus{ left:16px; top:16px; }
+
+/* ---------- Cookie banner ---------- */
+.btn-sm{ padding:9px 16px; font-size:.85rem; }
+.cookie-banner{
+  position:fixed; left:16px; right:16px; bottom:16px; z-index:90;
+  max-width:640px; margin:0 auto;
+  background: var(--color-surface); border:1px solid var(--color-border); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg); padding:20px 22px;
+  transform: translateY(140%); opacity:0; visibility:hidden;
+  transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .5s ease, visibility .5s;
+}
+.cookie-banner.visible{ transform:none; opacity:1; visibility:visible; }
+.cookie-banner-inner{ display:flex; flex-direction:column; gap:14px; }
+.cookie-banner p{ margin:0; font-size:.85rem; color: var(--color-text-muted); }
+.cookie-banner-actions{ display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
+@media (max-width:560px){
+  .cookie-banner{ left:10px; right:10px; bottom:10px; padding:16px; }
+  .cookie-banner-actions{ justify-content:stretch; }
+  .cookie-banner-actions .btn{ flex:1; }
+}
