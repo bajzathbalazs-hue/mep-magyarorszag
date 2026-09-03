@@ -16,21 +16,48 @@
 <a class="skip-link" href="#main">Ugrás a tartalomra</a>
 
 <header class="site-header">
-  <div class="container nav">
-    <a class="brand" href="../../index.html">MEP <span style="color:var(--color-text-muted); font-weight:600;">Magyarország</span><small>BTK Kft. – hivatalos forgalmazó</small></a>
-    <nav aria-label="Fő navigáció">
-      <ul class="nav-links">
-        <li><a href="../../index.html">Főoldal</a></li>
-        <li><a href="index.html" class="active">Termékek</a></li>
-        <li><a href="../keszlet/index.html">Aktuális készlet</a></li>
-        <li><a href="../blog/index.html">Blog</a></li>
-        <li><a href="../rolunk.html">Rólunk / MEP Magyarország</a></li>
-        <li><a href="../kapcsolat.html">Kapcsolat</a></li>
-      </ul>
-    </nav>
-    <div class="nav-actions">
-      <a class="btn btn-outline" href="../kapcsolat.html">Ajánlatot kérek</a>
-      <button class="nav-toggle" aria-label="Menü megnyitása" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="floating-nav">
+    <a class="brand-mark" href="../../index.html" aria-label="BTK Kft. – főoldal">
+      <img src="../../assets/img/btk-logo.svg" alt="BTK Kft." class="brand-logo brand-logo-light">
+      <img src="../../assets/img/btk-logo-white.svg" alt="BTK Kft." class="brand-logo brand-logo-dark">
+    </a>
+
+    <a class="brand" href="../../index.html" aria-label="MEP Magyarország – BTK Kft. hivatalos forgalmazó, főoldal">
+      MEP <span class="brand-sub">Magyarország</span>
+    </a>
+
+    <div class="nav-right">
+      <div class="lang-switch">
+        <button type="button" class="lang-trigger" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-trigger-code">HU</span>
+          <svg class="lang-caret" width="9" height="6" viewBox="0 0 9 6" fill="none" aria-hidden="true"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="lang-menu">
+          <li><button type="button" class="lang-option is-active" data-lang="hu"><span class="lang-option-code">HU</span><span class="lang-option-name">Magyar</span></button></li>
+          <li><button type="button" class="lang-option" data-lang="en"><span class="lang-option-code">EN</span><span class="lang-option-name">English</span><em>Hamarosan</em></button></li>
+          <li><button type="button" class="lang-option" data-lang="it"><span class="lang-option-code">IT</span><span class="lang-option-name">Italiano</span><em>Hamarosan</em></button></li>
+          <li><button type="button" class="lang-option" data-lang="zh"><span class="lang-option-code">中文</span><span class="lang-option-name">中文</span><em>Hamarosan</em></button></li>
+        </ul>
+      </div>
+
+      <div class="nav-toggle-wrap">
+        <button class="nav-toggle" aria-haspopup="true" aria-controls="nav-panel" aria-label="Menü megnyitása" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-panel" id="nav-panel" aria-label="Fő navigáció">
+          <ul class="nav-links">
+            <li><a href="../../index.html">Főoldal</a></li>
+          <li><a href="index.html" class="active">Termékek</a></li>
+          <li><a href="../keszlet/index.html">Aktuális készlet</a></li>
+          <li><a href="../blog/index.html">Blog</a></li>
+          <li><a href="../rolunk.html">Rólunk / MEP Magyarország</a></li>
+          <li><a href="../kapcsolat.html">Kapcsolat</a></li>
+          </ul>
+          <div class="nav-panel-actions">
+            <a class="btn btn-primary btn-block" href="../kapcsolat.html">Ajánlatot kérek</a>
+          </div>
+        </nav>
+      </div>
     </div>
   </div>
 </header>
@@ -99,8 +126,8 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <h4>MEP Magyarország – BTK Kft.</h4>
-        <p style="color:#9aa3b7; font-size:.9rem; max-width:32ch;">A MEP fémipari fűrészgépek hivatalos magyarországi forgalmazója: értékesítés, szerviz, alkatrész, szakmai tanácsadás.</p>
+        <a href="../../index.html" class="footer-brand" aria-label="MEP Magyarország – BTK Kft. főoldal"><img src="../../assets/img/btk-logo-white.svg" alt="BTK Kft." class="footer-logo"></a>
+        <p class="footer-brand-tag">A BTK Kft. hivatalos MEP-forgalmazói oldala — MEP fémipari fűrészgépek Magyarországon.</p>
       </div>
       <div>
         <h4>Termékek</h4>

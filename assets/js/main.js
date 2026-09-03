@@ -2,21 +2,58 @@
 (function(){
   "use strict";
 
-  // Mobil hamburger menü
+  // Lebegő nav — hamburger lenyíló panel
   var toggle = document.querySelector(".nav-toggle");
-  var links = document.querySelector(".nav-links");
-  if (toggle && links) {
-    toggle.addEventListener("click", function () {
-      var isOpen = links.classList.toggle("open");
+  var panel = document.querySelector(".nav-panel");
+  if (toggle && panel) {
+    var closeNavPanel = function () {
+      panel.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+    toggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var isOpen = panel.classList.toggle("open");
       toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      document.body.style.overflow = isOpen ? "hidden" : "";
     });
-    links.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () {
-        links.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+    panel.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", closeNavPanel);
+    });
+    document.addEventListener("click", function (e) {
+      if (!panel.contains(e.target) && e.target !== toggle) closeNavPanel();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeNavPanel();
+    });
+  }
+
+  // Nyelvválasztó (UI — a tartalom fordítása később készül el, jelenleg csak HU él)
+  var langSwitch = document.querySelector(".lang-switch");
+  if (langSwitch) {
+    var langTrigger = langSwitch.querySelector(".lang-trigger");
+    var langCode = langSwitch.querySelector(".lang-trigger-code");
+    var closeLangMenu = function () {
+      langSwitch.classList.remove("open");
+      langTrigger.setAttribute("aria-expanded", "false");
+    };
+    langTrigger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var isOpen = langSwitch.classList.toggle("open");
+      langTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+    langSwitch.querySelectorAll(".lang-option").forEach(function (opt) {
+      opt.addEventListener("click", function () {
+        langSwitch.querySelectorAll(".lang-option").forEach(function (o) { o.classList.remove("is-active"); });
+        opt.classList.add("is-active");
+        if (langCode) langCode.textContent = opt.getAttribute("data-lang").toUpperCase();
+        try { localStorage.setItem("mep-lang", opt.getAttribute("data-lang")); } catch (err) {}
+        closeLangMenu();
       });
+    });
+    document.addEventListener("click", function (e) {
+      if (!langSwitch.contains(e.target)) closeLangMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeLangMenu();
     });
   }
 
