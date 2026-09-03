@@ -2,6 +2,31 @@
 (function(){
   "use strict";
 
+  // Sötét / világos mód kapcsoló
+  (function () {
+    var root = document.documentElement;
+    function isDark() {
+      var attr = root.getAttribute("data-theme");
+      if (attr === "dark") return true;
+      if (attr === "light") return false;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    function sync() {
+      document.querySelectorAll(".theme-toggle").forEach(function (btn) {
+        btn.setAttribute("aria-pressed", isDark() ? "true" : "false");
+      });
+    }
+    sync();
+    document.querySelectorAll(".theme-toggle").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var next = isDark() ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("mep-theme", next); } catch (err) {}
+        sync();
+      });
+    });
+  })();
+
   // Lebegő nav — hamburger lenyíló panel
   var toggle = document.querySelector(".nav-toggle");
   var panel = document.querySelector(".nav-panel");
