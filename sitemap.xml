@@ -5,6 +5,12 @@
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/korfureszek/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://mep.btkkft.hu/keszlet/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mep.btkkft.hu/keszlet/ph-261-1/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mep.btkkft.hu/keszlet/ph-211-1/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mep.btkkft.hu/keszlet/ph-211-1-hb/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mep.btkkft.hu/keszlet/shark-332-1-ccs/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mep.btkkft.hu/keszlet/cobra-352-ma/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mep.btkkft.hu/keszlet/willy-225/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mep.btkkft.hu/blog/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mep.btkkft.hu/rolunk/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mep.btkkft.hu/kapcsolat/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
