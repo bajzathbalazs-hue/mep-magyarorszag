@@ -27,9 +27,6 @@
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/thor-660/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/thor-860/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/thor-1020/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/ph-211-1/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/ph-211-1-hb/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/ph-261-1/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/ph-261-1-hb/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/ph-262/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/ph-262-hb/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -39,7 +36,6 @@
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/shark-282/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/shark-282-ccs/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/shark-282-ccs-ma/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://mep.btkkft.hu/termekek/szalagfureszek/shark-332-1-ccs/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/korfureszek/velocex-65/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/korfureszek/velocex-80/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/korfureszek/velocex-100/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -59,8 +55,6 @@
   <url><loc>https://mep.btkkft.hu/termekek/korfureszek/falcon-352-ma/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/korfureszek/tiger-352/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/termekek/korfureszek/tiger-352-ma/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://mep.btkkft.hu/termekek/korfureszek/cobra-352-ma/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://mep.btkkft.hu/termekek/korfureszek/willy-225/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mep.btkkft.hu/keszlet/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://mep.btkkft.hu/keszlet/ph-261-1/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mep.btkkft.hu/keszlet/ph-211-1/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
