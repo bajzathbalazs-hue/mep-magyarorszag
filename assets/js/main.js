@@ -198,6 +198,121 @@
     if (rejectBtn) rejectBtn.addEventListener("click", function () { setConsent("rejected"); });
   })();
 
+  // Élő, 3D-s hatású hálózat-animáció a hero háttérben (canvas)
+  (function () {
+    var canvases = document.querySelectorAll(".hero-bg-canvas");
+    if (!canvases.length || !window.requestAnimationFrame) return;
+    var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    canvases.forEach(function (canvas) {
+      var ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      var section = canvas.closest(".hero") || canvas.parentElement;
+      var particles = [];
+      var width = 0, height = 0, dpr = 1;
+      var mouseX = 0, mouseY = 0, rafId = null;
+
+      function resize() {
+        var rect = section.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = rect.width;
+        height = rect.height;
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        mouseX = width / 2;
+        mouseY = height / 2;
+      }
+
+      function initParticles() {
+        var count = width < 700 ? 24 : 52;
+        particles = [];
+        for (var i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            z: Math.random(),
+            vx: (Math.random() - 0.5) * 0.22,
+            vy: (Math.random() - 0.5) * 0.22
+          });
+        }
+      }
+
+      function frame() {
+        ctx.clearRect(0, 0, width, height);
+        var parX = (mouseX / width - 0.5) * 16;
+        var parY = (mouseY / height - 0.5) * 16;
+
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < -10) p.x = width + 10; else if (p.x > width + 10) p.x = -10;
+          if (p.y < -10) p.y = height + 10; else if (p.y > height + 10) p.y = -10;
+        }
+
+        var maxDist = 130;
+        for (var a = 0; a < particles.length; a++) {
+          for (var b = a + 1; b < particles.length; b++) {
+            var pa = particles[a], pb = particles[b];
+            var dx = pa.x - pb.x, dy = pa.y - pb.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < maxDist) {
+              var op = (1 - dist / maxDist) * 0.32 * ((pa.z + pb.z) / 2 + 0.35);
+              ctx.strokeStyle = "rgba(103,232,249," + op.toFixed(3) + ")";
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(pa.x + parX * pa.z, pa.y + parY * pa.z);
+              ctx.lineTo(pb.x + parX * pb.z, pb.y + parY * pb.z);
+              ctx.stroke();
+            }
+          }
+        }
+
+        for (var j = 0; j < particles.length; j++) {
+          var pt = particles[j];
+          var r = 1 + pt.z * 2.2;
+          ctx.beginPath();
+          ctx.fillStyle = "rgba(103,232,249," + (0.35 + pt.z * 0.5).toFixed(3) + ")";
+          ctx.arc(pt.x + parX * pt.z, pt.y + parY * pt.z, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function loop() { frame(); rafId = requestAnimationFrame(loop); }
+      function start() { if (!rafId) loop(); }
+      function stop() { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
+
+      resize();
+      initParticles();
+
+      if (prefersReducedMotion) {
+        frame();
+      } else {
+        start();
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) { entry.isIntersecting ? start() : stop(); });
+          }, { threshold: 0 }).observe(section);
+        }
+      }
+
+      window.addEventListener("resize", function () {
+        resize();
+        initParticles();
+        if (prefersReducedMotion) frame();
+      });
+      section.addEventListener("mousemove", function (e) {
+        var rect = section.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+      });
+      section.addEventListener("mouseleave", function () {
+        mouseX = width / 2;
+        mouseY = height / 2;
+      });
+    });
+  })();
+
   // Segítség-fül (call-to-action widget)
   (function () {
     var widget = document.getElementById("help-widget");
