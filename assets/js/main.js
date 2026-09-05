@@ -279,13 +279,16 @@
       }
 
       function loop() { frame(); rafId = requestAnimationFrame(loop); }
-      function start() { if (!rafId) loop(); }
+      function start() { if (!rafId && isCanvasVisible()) loop(); }
       function stop() { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
+      function isCanvasVisible() { return getComputedStyle(canvas).display !== "none"; }
 
       resize();
       initParticles();
 
-      if (prefersReducedMotion) {
+      if (!isCanvasVisible()) {
+        // Mobilon/tableten a CSS elrejti a canvas-t (kevesebb effekt, gyorsabb betöltés) — ne fusson feleslegesen
+      } else if (prefersReducedMotion) {
         frame();
       } else {
         start();
@@ -299,7 +302,9 @@
       window.addEventListener("resize", function () {
         resize();
         initParticles();
-        if (prefersReducedMotion) frame();
+        if (!isCanvasVisible()) { stop(); }
+        else if (prefersReducedMotion) { frame(); }
+        else { start(); }
       });
       section.addEventListener("mousemove", function (e) {
         var rect = section.getBoundingClientRect();

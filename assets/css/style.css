@@ -384,11 +384,31 @@ p{ margin:0 0 1em; color: var(--color-text-muted); }
 .hero-stat span{ color:#9aa3b7; font-size:.85rem; }
 
 @media (max-width: 860px){
-  .hero-grid{ grid-template-columns: 1fr; }
-  .hero{ padding: 108px 0 56px; text-align:left; }
+  .hero-grid{ grid-template-columns: minmax(0, 1fr); gap:28px; }
+  .hero-grid > *{ min-width:0; }
+  .hero{ padding: 108px 0 40px; text-align:left; }
+  /* Kevesebb effekt mobilon/tableten: gyorsabb betöltés, tisztább (nem "homályos") háttér */
+  .hero::before, .hero::after{ display:none; }
+  .hero-bg-canvas{ display:none; }
+  .hero p.lead{ max-width:none; }
+  .hero-actions{ margin-top:18px; }
+  /* Statisztika-sáv: vízszintes görgetés, hogy ne törje sorokra és ne nyújtsa meg a hero-t */
+  .hero-stats{
+    flex-wrap:nowrap; overflow-x:auto; gap:26px; margin-top:26px;
+    padding-bottom:6px; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    -webkit-mask-image: linear-gradient(90deg, black calc(100% - 24px), transparent);
+    mask-image: linear-gradient(90deg, black calc(100% - 24px), transparent);
+  }
+  .hero-stats::-webkit-scrollbar{ display:none; }
+  .hero-stat{ flex:none; white-space:nowrap; }
+  .hero-visual{ aspect-ratio:16/10; margin-top:0; }
 }
 @media (max-width: 560px){
-  .hero{ padding-top: 100px; }
+  .hero{ padding-top: 92px; padding-bottom:32px; }
+  .hero h1{ font-size:1.8rem; line-height:1.2; }
+  .hero p.lead{ font-size:.95rem; }
+  .hero-stat b{ font-size:1.3rem; }
+  .hero-stat span{ font-size:.78rem; }
 }
 
 /* ---------- Görgetésjelző ---------- */
