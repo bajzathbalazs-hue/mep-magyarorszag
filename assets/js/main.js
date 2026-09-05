@@ -198,6 +198,36 @@
     if (rejectBtn) rejectBtn.addEventListener("click", function () { setConsent("rejected"); });
   })();
 
+  // Segítség-fül (call-to-action widget)
+  (function () {
+    var widget = document.getElementById("help-widget");
+    if (!widget) return;
+    var tab = document.getElementById("help-tab");
+    var closeBtn = widget.querySelector(".help-panel-close");
+
+    function openPanel() {
+      widget.classList.add("open");
+      if (tab) tab.setAttribute("aria-expanded", "true");
+    }
+    function closePanel() {
+      widget.classList.remove("open");
+      if (tab) tab.setAttribute("aria-expanded", "false");
+    }
+    if (tab) {
+      tab.addEventListener("click", function () {
+        if (widget.classList.contains("open")) closePanel();
+        else openPanel();
+      });
+    }
+    if (closeBtn) closeBtn.addEventListener("click", closePanel);
+    document.addEventListener("click", function (e) {
+      if (widget.classList.contains("open") && !widget.contains(e.target)) closePanel();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closePanel();
+    });
+  })();
+
   // Év a lábléchez
   var yearEl = document.querySelector("#current-year");
   if (yearEl) { yearEl.textContent = new Date().getFullYear(); }

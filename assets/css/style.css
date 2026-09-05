@@ -634,6 +634,58 @@ textarea{ resize: vertical; min-height: 120px; }
 .skip-link{ position:absolute; left:-999px; top:0; background:#fff; color:#000; padding:10px 16px; z-index:100; }
 .skip-link:focus{ left:16px; top:16px; }
 
+/* ---------- Segítség-fül (call-to-action widget) ---------- */
+.help-widget{ position:fixed; z-index:85; right:0; top:62%; transform:translateY(-50%); }
+.help-tab{
+  display:flex; align-items:center; gap:9px;
+  background: var(--color-accent); color:#fff; border:0; cursor:pointer;
+  padding:15px 20px 15px 16px; border-radius: 999px 0 0 999px;
+  font: inherit; font-weight:700; font-size:.85rem; white-space:nowrap;
+  box-shadow: var(--shadow-lg), 0 0 24px -8px var(--glow-blue);
+  transition: background var(--transition), padding-right var(--transition), transform var(--transition);
+}
+.help-tab:hover{ background: var(--color-accent-hover); padding-right:26px; }
+.help-tab-icon{ flex:none; display:flex; }
+.help-widget.open .help-tab{ opacity:0; visibility:hidden; pointer-events:none; }
+
+.help-panel{
+  position:absolute; right:0; top:50%;
+  transform: translateY(-50%) translateX(16px) scale(.95);
+  width:min(320px, calc(100vw - 24px));
+  background: var(--color-surface); border:1px solid var(--color-border); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg); padding:24px;
+  opacity:0; visibility:hidden;
+  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+}
+.help-widget.open .help-panel{ opacity:1; visibility:visible; transform: translateY(-50%) translateX(0) scale(1); }
+.help-panel-close{
+  position:absolute; top:14px; right:14px; width:28px; height:28px; border-radius:50%;
+  border:0; background: var(--color-gray-100); color: var(--color-text); cursor:pointer;
+  font-size:1.15rem; line-height:1; display:flex; align-items:center; justify-content:center;
+}
+.help-panel-close:hover{ background: var(--color-gray-200); }
+.help-panel h3{ margin:0 6px 8px 0; font-size:1.05rem; line-height:1.3; }
+.help-panel p{ margin:0 0 18px; font-size:.86rem; color: var(--color-text-muted); line-height:1.55; }
+.help-contact-link{
+  display:flex; align-items:center; gap:12px; padding:9px 6px; margin:0 -6px 2px; border-radius: var(--radius-sm);
+  color: var(--color-text); font-size:.85rem; line-height:1.4;
+}
+.help-contact-link:hover{ background: var(--color-gray-100); }
+.help-contact-link strong{ display:block; font-size:.82rem; }
+.help-contact-link span.help-contact-text{ font-weight:600; color: var(--color-text-muted); }
+.help-contact-icon{
+  display:flex; align-items:center; justify-content:center; flex:none;
+  width:38px; height:38px; border-radius:50%; background: var(--color-blue-100); color: var(--color-accent);
+}
+.help-panel .btn-block{ margin-top:14px; }
+
+@media (max-width:640px){
+  .help-widget{ top:58%; }
+  .help-tab span{ display:none; }
+  .help-tab{ padding:14px; border-radius:50%; box-shadow: var(--shadow-lg), 0 0 24px -8px var(--glow-blue); }
+  .help-tab:hover{ padding-right:14px; }
+}
+
 /* ---------- Cookie banner ---------- */
 .btn-sm{ padding:9px 16px; font-size:.85rem; }
 .cookie-banner{
