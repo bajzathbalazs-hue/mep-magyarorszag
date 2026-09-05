@@ -246,6 +246,16 @@ p{ margin:0 0 1em; color: var(--color-text-muted); }
 .nav-links a.active{ color: var(--color-accent); background: var(--color-blue-100); }
 .nav-panel-actions{ margin-top:8px; padding-top:10px; border-top:1px solid var(--color-border); }
 
+/* Termékek almenü (kategóriák) — mobilon mindig látszik a fő elem alatt behúzva */
+.nav-item.has-sub{ display:flex; flex-direction:column; }
+.nav-submenu{
+  list-style:none; margin:2px 0 6px 14px; padding:0 0 0 10px;
+  display:flex; flex-direction:column; gap:1px;
+  border-left:2px solid var(--color-border);
+}
+.nav-submenu a{ display:block; padding:8px 10px; border-radius: var(--radius-sm); color: var(--color-text-muted); font-weight:500; font-size:.86rem; }
+.nav-submenu a:hover{ background: var(--color-gray-100); color: var(--color-accent); }
+
 /* Sötét / világos mód kapcsoló */
 .theme-toggle{
   display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%;
@@ -269,6 +279,48 @@ p{ margin:0 0 1em; color: var(--color-text-muted); }
   .site-header{ padding: 12px; }
   .floating-nav{ padding:8px 8px 8px 12px; }
   .nav-panel{ right:0; }
+}
+
+/* ---------- Laptop / desktop nézet: rendes, kiírt navigációs sáv, hamburger nélkül ---------- */
+@media (min-width: 901px){
+  .floating-nav{
+    max-width: 1260px; gap:16px; padding: 8px 10px 8px 18px;
+    grid-template-columns: auto 1fr auto;
+  }
+  /* Rács alapú elrendezés: a bal/jobb oszlop sosem lóghat át a középső logó-oszlopon */
+  .brand-mark{ justify-self:center; }
+
+  /* Hamburger gomb elrejtve, a menü mindig nyitva/inline */
+  .nav-toggle{ display:none; }
+  .nav-toggle-wrap{ justify-self:end; display:flex; align-items:center; gap:18px; }
+  .nav-panel{
+    position:static; width:auto; max-width:none;
+    opacity:1; visibility:visible; transform:none;
+    background:none; border:0; box-shadow:none; padding:0;
+    display:flex; align-items:center; gap:18px;
+  }
+  .nav-links{ flex-direction:row; align-items:center; gap:0; }
+  .nav-links a{ padding:9px 9px; font-size:.84rem; white-space:nowrap; }
+  .nav-panel-actions{ margin:0; padding:0; border:0; }
+  .nav-panel-actions .btn-block{ width:auto; }
+
+  /* Sötét/világos mód kapcsoló — kompakt, ikon-szerű forma a sávban */
+  .theme-toggle{ width:auto; margin:0; padding:0; border:0; background:none; flex-direction:row; gap:8px; }
+  .theme-toggle > span:first-child{ display:none; }
+
+  /* Termékek almenü — asztali nézetben lenyíló panel hoverre/fókuszra */
+  .nav-item.has-sub{ position:relative; flex-direction:row; }
+  .nav-item.has-sub > .nav-submenu{
+    position:absolute; top:calc(100% + 10px); left:0; z-index:5;
+    flex-direction:column; margin:0; padding:8px; min-width:210px;
+    border-left:0; background: var(--color-surface); border:1px solid var(--color-border);
+    border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+    opacity:0; visibility:hidden; transform: translateY(-6px);
+    transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+  }
+  .nav-item.has-sub:hover > .nav-submenu,
+  .nav-item.has-sub:focus-within > .nav-submenu{ opacity:1; visibility:visible; transform:none; }
+  .nav-item.has-sub > .nav-submenu a{ font-size:.88rem; padding:9px 10px; }
 }
 
 /* ---------- Hero ---------- */
