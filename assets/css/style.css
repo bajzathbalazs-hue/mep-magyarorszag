@@ -628,7 +628,7 @@ textarea{ resize: vertical; min-height: 120px; }
 .text-center{ text-align:center; }
 .mx-auto{ margin-left:auto; margin-right:auto; }
 .mt-0{ margin-top:0; }
-.badge-stock{ display:inline-block; font-size:.72rem; font-weight:700; text-transform:uppercase; padding:4px 10px; border-radius:999px; }
+.badge-stock{ display:inline-block; font-size:.72rem; font-weight:700; text-transform:uppercase; padding:4px 10px; border-radius:999px; margin:0 0 12px; }
 .badge-stock.in{ background:#e7f6ec; color:#1b7a3d; }
 .badge-stock.order{ background:#fef3e2; color:#a5680b; }
 .skip-link{ position:absolute; left:-999px; top:0; background:#fff; color:#000; padding:10px 16px; z-index:100; }
