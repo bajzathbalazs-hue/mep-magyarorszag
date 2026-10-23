@@ -118,6 +118,36 @@
   }
 
   // Ajánlatkérő űrlap — kliensoldali validáció + valódi e-mail küldés (FormSubmit.co, fiók nélkül)
+  // A visszajelző üzenetek az oldal nyelvéhez (<html lang>) igazodnak.
+  var FORM_MESSAGES = {
+    hu: {
+      required: "Kérjük, töltse ki a kötelező mezőket, és fogadja el az adatkezelési tájékoztatót.",
+      sending: "Küldés…",
+      success: "Köszönjük! Munkatársunk egy munkanapon belül felveszi Önnel a kapcsolatot.",
+      error: "Hiba történt a küldés során. Kérjük, próbálja újra, vagy írjon nekünk közvetlenül az info@btkkft.hu címre."
+    },
+    en: {
+      required: "Please fill in the required fields and accept the privacy notice.",
+      sending: "Sending…",
+      success: "Thank you! Our team will contact you within one business day.",
+      error: "An error occurred while sending. Please try again or email us directly at info@btkkft.hu."
+    },
+    it: {
+      required: "Compili i campi obbligatori e accetti l’informativa sulla privacy.",
+      sending: "Invio in corso…",
+      success: "Grazie! Un nostro collaboratore la contatterà entro un giorno lavorativo.",
+      error: "Si è verificato un errore durante l’invio. Riprovi oppure ci scriva direttamente a info@btkkft.hu."
+    },
+    zh: {
+      required: "请填写所有必填项，并同意隐私政策。",
+      sending: "正在发送…",
+      success: "谢谢！我们的同事将在一个工作日内与您联系。",
+      error: "发送时出现错误。请重试，或直接发送电子邮件至 info@btkkft.hu。"
+    }
+  };
+  var pageLang = (document.documentElement.lang || "hu").slice(0, 2).toLowerCase();
+  var msg = FORM_MESSAGES[pageLang] || FORM_MESSAGES.hu;
+
   var quoteForm = document.querySelector("#quote-form");
   if (quoteForm) {
     var formLoadTime = Date.now();
@@ -140,20 +170,20 @@
       var honey = quoteForm.querySelector('[name="company_website"]');
       var submittedTooFast = Date.now() - formLoadTime < 2500;
       if ((honey && honey.value) || submittedTooFast) {
-        status.textContent = "Hiba történt a küldés során. Kérjük, próbálja újra.";
+        status.textContent = msg.error;
         status.classList.add("error", "visible");
         return;
       }
 
       if (!requiredOk) {
-        status.textContent = "Kérjük, töltsd ki a kötelező mezőket, és fogadd el az adatkezelési tájékoztatót.";
+        status.textContent = msg.required;
         status.classList.add("error", "visible");
         return;
       }
 
       var submitBtn = quoteForm.querySelector('button[type="submit"]');
       var submitBtnLabel = submitBtn ? submitBtn.textContent : "";
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Küldés…"; }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = msg.sending; }
 
       fetch(quoteForm.action, {
         method: "POST",
@@ -161,13 +191,17 @@
         body: new FormData(quoteForm)
       })
         .then(function (res) { return res.ok ? res.json() : Promise.reject(res); })
-        .then(function () {
-          status.textContent = "Köszönjük! Munkatársunk 1 munkanapon belül felveszi Önnel a kapcsolatot.";
+        .then(function (data) {
+          // A FormSubmit aktiválatlan űrlapnál is 200-as választ ad, ezért a
+          // "success" mezőt is ellenőrizzük, hogy ne jelezzünk hamis sikert.
+          var ok = data && (data.success === true || data.success === "true");
+          if (!ok) return Promise.reject(data);
+          status.textContent = msg.success;
           status.classList.add("success", "visible");
           quoteForm.reset();
         })
         .catch(function () {
-          status.textContent = "Hiba történt a küldés során. Kérjük, próbálja újra, vagy írjon nekünk közvetlenül az info@btkkft.hu címre.";
+          status.textContent = msg.error;
           status.classList.add("error", "visible");
         })
         .finally(function () {
