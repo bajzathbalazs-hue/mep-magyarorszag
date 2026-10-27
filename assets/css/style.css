@@ -284,14 +284,20 @@ p{ margin:0 0 1em; color: var(--color-text-muted); }
 /* ---------- Laptop / desktop nézet: rendes, kiírt navigációs sáv, hamburger nélkül ---------- */
 @media (min-width: 901px){
   .floating-nav{
-    display:grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items:center;
+    position:relative;
+    display:flex; align-items:center;
     max-width: 1260px; gap:16px; padding: 8px 10px 8px 18px;
   }
-  /* Laptopon: logó középen, a navigáció balra, a nyelvválasztó jobbra igazítva (rács) */
-  .brand-mark{ order:2; justify-self:center; margin-right:0; }
-  .nav-toggle-wrap{ order:1; justify-self:end; min-width:0; }
-  .lang-switch{ order:3; justify-self:start; }
-  .lang-menu{ left:0; right:auto; }
+  /* Laptopon: logó vizuálisan középen (abszolút pozícionálva, kiemelve a
+     flex-sorból, hogy a sok navigációs elem ne tudja kiszorítani/eltolni),
+     a menü balra, a nyelvválasztó jobbra. */
+  .brand-mark{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    margin-right:0; pointer-events:auto; z-index:1;
+  }
+  .nav-toggle-wrap{ order:1; }
+  .lang-switch{ order:2; margin-left:auto; }
+  .lang-menu{ left:auto; right:0; }
 
   /* Hamburger gomb elrejtve, a menü mindig nyitva/inline */
   .nav-toggle{ display:none; }
