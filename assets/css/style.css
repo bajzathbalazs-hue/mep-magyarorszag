@@ -283,46 +283,33 @@ p{ margin:0 0 1em; color: var(--color-text-muted); }
 
 /* ---------- Laptop / desktop nézet: rendes, kiírt navigációs sáv, hamburger nélkül ---------- */
 @media (min-width: 901px){
-  /* Letisztultabb, két soros fejléc: felül logó + kapcsoló + CTA + nyelv,
-     alul teljes szélességű menüsor — így semmi nem zsúfolódik össze. */
   .floating-nav{
-    display:grid;
-    grid-template-columns: auto auto auto 1fr auto;
-    grid-template-rows: auto auto;
-    align-items:center;
-    row-gap:12px; column-gap:18px;
-    max-width: 1260px; padding: 14px 20px;
+    display:flex; align-items:center;
+    max-width: 1260px; gap:16px; padding: 8px 10px 8px 18px;
   }
-  .brand-mark{ grid-row:1; grid-column:1; margin:0; }
+  /* Laptopon: logó bal szélen, nyelvválasztó jobb szélen (flex sorrend) */
+  .brand-mark{ order:1; margin-right:auto; }
+  .nav-toggle-wrap{ order:2; }
+  .lang-switch{ order:3; }
   .lang-menu{ left:auto; right:0; }
 
-  /* Hamburger gomb elrejtve; a nav-toggle-wrap és nav-panel "feloldva",
-     hogy a bennük lévő elemek (menüsor / sötét mód / CTA) önállóan
-     elhelyezhetők legyenek a rácsban. */
+  /* Hamburger gomb elrejtve, a menü mindig nyitva/inline */
   .nav-toggle{ display:none; }
-  .nav-toggle-wrap{ display:contents; }
+  .nav-toggle-wrap{ display:flex; align-items:center; gap:18px; }
   .nav-panel{
-    display:contents;
-    position:static; opacity:1; visibility:visible; transform:none;
+    position:static; width:auto; max-width:none; min-width:0;
+    opacity:1; visibility:visible; transform:none;
     background:none; border:0; box-shadow:none; padding:0;
+    display:flex; align-items:center; gap:18px;
   }
-  .nav-links{
-    grid-row:2; grid-column:1 / -1;
-    flex-direction:row; align-items:center; gap:2px; min-width:0;
-    padding-top:10px; border-top:1px solid var(--color-border);
-  }
-  .nav-links a{ padding:8px 12px; font-size:.86rem; white-space:nowrap; }
-  .nav-panel-actions{ grid-row:1; grid-column:3; margin:0; padding:0; border:0; }
+  .nav-links{ flex-direction:row; align-items:center; gap:0; min-width:0; }
+  .nav-links a{ padding:9px 9px; font-size:.84rem; white-space:nowrap; }
+  .nav-panel-actions{ margin:0; padding:0; border:0; }
   .nav-panel-actions .btn-block{ width:auto; }
-  .lang-switch{ grid-row:1; grid-column:5; justify-self:end; }
 
-  /* Sötét/világos mód kapcsoló — kompakt, ikon-szerű forma a felső sorban */
-  .theme-toggle{ grid-row:1; grid-column:2; width:auto; margin:0; padding:0; border:0; background:none; flex-direction:row; gap:8px; }
+  /* Sötét/világos mód kapcsoló — kompakt, ikon-szerű forma a sávban */
+  .theme-toggle{ width:auto; margin:0; padding:0; border:0; background:none; flex-direction:row; gap:8px; }
   .theme-toggle > span:first-child{ display:none; }
-
-  /* A fejléc két sorossá vált, ezért magasabb — a tartalomnak több hely kell felülről */
-  #main{ padding-top: 150px; }
-  #main:has(> .hero){ padding-top: 0; }
 
   /* Termékek almenü — asztali nézetben lenyíló panel hoverre/fókuszra */
   .nav-item.has-sub{ position:relative; flex-direction:row; }
@@ -348,11 +335,6 @@ p{ margin:0 0 1em; color: var(--color-text-muted); }
     linear-gradient(180deg, var(--color-gray-900) 0%, var(--color-gray-800) 100%);
   color:#fff;
   padding: 100px 0 90px;
-}
-@media (min-width: 901px){
-  /* A kétsoros desktop fejléc magasabb, mint a mobil — a hero szövegének
-     is lejjebb kell kezdődnie, hogy ne csússzon a lebegő nav alá. */
-  .hero{ padding-top: 196px; }
 }
 .hero::before, .hero::after{
   content:""; position:absolute; width:520px; height:520px; border-radius:50%;
