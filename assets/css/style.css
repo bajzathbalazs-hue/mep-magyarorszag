@@ -284,19 +284,13 @@ p{ margin:0 0 1em; color: var(--color-text-muted); }
 /* ---------- Laptop / desktop nézet: rendes, kiírt navigációs sáv, hamburger nélkül ---------- */
 @media (min-width: 901px){
   .floating-nav{
-    position:relative;
     display:flex; align-items:center;
     max-width: 1260px; gap:16px; padding: 8px 10px 8px 18px;
   }
-  /* Laptopon: logó vizuálisan középen (abszolút pozícionálva, kiemelve a
-     flex-sorból, hogy a sok navigációs elem ne tudja kiszorítani/eltolni),
-     a menü balra, a nyelvválasztó jobbra. */
-  .brand-mark{
-    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    margin-right:0; pointer-events:auto; z-index:1;
-  }
-  .nav-toggle-wrap{ order:1; }
-  .lang-switch{ order:2; margin-left:auto; }
+  /* Laptopon: logó bal szélen, nyelvválasztó jobb szélen (flex sorrend) */
+  .brand-mark{ order:1; margin-right:auto; }
+  .nav-toggle-wrap{ order:2; }
+  .lang-switch{ order:3; }
   .lang-menu{ left:auto; right:0; }
 
   /* Hamburger gomb elrejtve, a menü mindig nyitva/inline */
