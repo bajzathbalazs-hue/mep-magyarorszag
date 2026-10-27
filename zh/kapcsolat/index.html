@@ -107,10 +107,8 @@
     <div class="container">
       <div class="grid grid-2" style="gap:48px; align-items:flex-start;">
 
-        <form id="quote-form" class="reveal" novalidate action="https://formsubmit.co/ajax/info@btkkft.hu" method="POST">
-          <input type="hidden" name="_subject" value="新的报价请求 – MEP网站">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_cc" value="balazs.bajzath@btkkft.hu,gabor.bajzath@btkkft.hu">
+        <form id="quote-form" class="reveal" novalidate name="quote-form" method="POST" action="/" data-netlify="true" netlify-honeypot="company_website">
+          <input type="hidden" name="subject" value="新的报价请求 – MEP网站">
           <input type="text" name="company_website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-grid">
             <div class="field">
@@ -161,7 +159,7 @@
           </div>
           <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top:20px;">发送报价请求</button>
           <p class="form-status" role="status"></p>
-          <p class="form-note">* 为必填字段。提交的报价请求将通过电子邮件发送至BTK Kft.工作人员（info@btkkft.hu、balazs.bajzath@btkkft.hu、gabor.bajzath@btkkft.hu）。</p>
+          <p class="form-note">* 为必填字段。您的请求将由我们的团队接收，并在1个工作日内回复。</p>
         </form>
 
         <div class="reveal">
@@ -225,6 +223,7 @@
       <div>
         <a href="../index.html" class="footer-brand" aria-label="MEP匈牙利 – BTK Kft. 首页"><img src="../../assets/img/btk-logo-white.svg" alt="BTK Kft." class="footer-logo"></a>
         <p class="footer-brand-tag">BTK Kft.官方MEP经销商网站 — MEP金属加工锯床，服务匈牙利市场。</p>
+        <div class="footer-mep-badge"><img src="https://mepsaws.it/static/images/mep.svg" alt="MEP S.p.A." class="footer-mep-logo" loading="lazy"><span>匈牙利官方代理商</span></div>
       </div>
       <div>
         <h4>产品</h4>

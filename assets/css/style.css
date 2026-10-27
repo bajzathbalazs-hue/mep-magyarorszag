@@ -284,25 +284,25 @@ p{ margin:0 0 1em; color: var(--color-text-muted); }
 /* ---------- Laptop / desktop nézet: rendes, kiírt navigációs sáv, hamburger nélkül ---------- */
 @media (min-width: 901px){
   .floating-nav{
-    display:flex; align-items:center;
+    display:grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items:center;
     max-width: 1260px; gap:16px; padding: 8px 10px 8px 18px;
   }
-  /* Laptopon: logó bal szélen, nyelvválasztó jobb szélen (flex sorrend, grid helyett) */
-  .brand-mark{ order:1; margin-right:auto; }
-  .nav-toggle-wrap{ order:2; }
-  .lang-switch{ order:3; }
-  .lang-menu{ left:auto; right:0; }
+  /* Laptopon: logó középen, a navigáció balra, a nyelvválasztó jobbra igazítva (rács) */
+  .brand-mark{ order:2; justify-self:center; margin-right:0; }
+  .nav-toggle-wrap{ order:1; justify-self:end; min-width:0; }
+  .lang-switch{ order:3; justify-self:start; }
+  .lang-menu{ left:0; right:auto; }
 
   /* Hamburger gomb elrejtve, a menü mindig nyitva/inline */
   .nav-toggle{ display:none; }
   .nav-toggle-wrap{ display:flex; align-items:center; gap:18px; }
   .nav-panel{
-    position:static; width:auto; max-width:none;
+    position:static; width:auto; max-width:none; min-width:0;
     opacity:1; visibility:visible; transform:none;
     background:none; border:0; box-shadow:none; padding:0;
     display:flex; align-items:center; gap:18px;
   }
-  .nav-links{ flex-direction:row; align-items:center; gap:0; }
+  .nav-links{ flex-direction:row; align-items:center; gap:0; min-width:0; }
   .nav-links a{ padding:9px 9px; font-size:.84rem; white-space:nowrap; }
   .nav-panel-actions{ margin:0; padding:0; border:0; }
   .nav-panel-actions .btn-block{ width:auto; }
@@ -639,6 +639,9 @@ textarea{ resize: vertical; min-height: 120px; }
 .footer-brand{ display:inline-block; margin-bottom:14px; }
 .footer-logo{ height:38px; width:auto; display:block; }
 .footer-brand-tag{ color:#9aa3b7; font-size:.9rem; max-width:32ch; margin:0; }
+.footer-mep-badge{ display:flex; align-items:center; gap:10px; width:fit-content; margin-top:18px; padding:8px 14px; background:#fff; border-radius:10px; }
+.footer-mep-logo{ height:26px; width:auto; display:block; }
+.footer-mep-badge span{ color: var(--color-gray-900); font-size:.76rem; font-weight:700; white-space:nowrap; }
 .site-footer a{ color:#9aa3b7; font-size:.9rem; }
 .site-footer a:hover{ color:#fff; }
 .footer-bottom{ border-top:1px solid #232a36; margin-top:44px; padding-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:.8rem; color:#6b7386; }

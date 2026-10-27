@@ -185,22 +185,26 @@
       var submitBtnLabel = submitBtn ? submitBtn.textContent : "";
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = msg.sending; }
 
-      fetch(quoteForm.action, {
+      // Netlify Forms saját, beépített űrlapkezelője — nincs külső szolgáltatótól
+      // függő, esetlegesen elérhetetlen végpont. Időkorlát (AbortController),
+      // hogy a gomb soha ne ragadhasson be "Küldés…" állapotban.
+      var controller = (typeof AbortController !== "undefined") ? new AbortController() : null;
+      var timeoutId = controller ? window.setTimeout(function () { controller.abort(); }, 12000) : null;
+
+      fetch("/", {
         method: "POST",
-        headers: { "Accept": "application/json" },
-        body: new FormData(quoteForm)
+        body: new FormData(quoteForm),
+        signal: controller ? controller.signal : undefined
       })
-        .then(function (res) { return res.ok ? res.json() : Promise.reject(res); })
-        .then(function (data) {
-          // A FormSubmit aktiválatlan űrlapnál is 200-as választ ad, ezért a
-          // "success" mezőt is ellenőrizzük, hogy ne jelezzünk hamis sikert.
-          var ok = data && (data.success === true || data.success === "true");
-          if (!ok) return Promise.reject(data);
+        .then(function (res) {
+          if (timeoutId) window.clearTimeout(timeoutId);
+          if (!res.ok) return Promise.reject(res);
           status.textContent = msg.success;
           status.classList.add("success", "visible");
           quoteForm.reset();
         })
         .catch(function () {
+          if (timeoutId) window.clearTimeout(timeoutId);
           status.textContent = msg.error;
           status.classList.add("error", "visible");
         })
